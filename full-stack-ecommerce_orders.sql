@@ -1,0 +1,67 @@
+CREATE DATABASE  IF NOT EXISTS `full-stack-ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `full-stack-ecommerce`;
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+--
+-- Host: localhost    Database: full-stack-ecommerce
+-- ------------------------------------------------------
+-- Server version	8.0.36
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `order_tracking_number` varchar(255) DEFAULT NULL,
+  `total_price` decimal(19,2) DEFAULT NULL,
+  `total_quantity` int DEFAULT NULL,
+  `billing_address_id` bigint DEFAULT NULL,
+  `customer_id` bigint DEFAULT NULL,
+  `shipping_address_id` bigint DEFAULT NULL,
+  `status` varchar(128) DEFAULT NULL,
+  `date_created` datetime(6) DEFAULT NULL,
+  `last_updated` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_billing_address_id` (`billing_address_id`),
+  UNIQUE KEY `UK_shipping_address_id` (`shipping_address_id`),
+  KEY `K_customer_id` (`customer_id`),
+  CONSTRAINT `FK_billing_address_id` FOREIGN KEY (`billing_address_id`) REFERENCES `address` (`id`),
+  CONSTRAINT `FK_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  CONSTRAINT `FK_shipping_address_id` FOREIGN KEY (`shipping_address_id`) REFERENCES `address` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` (`id`, `order_tracking_number`, `total_price`, `total_quantity`, `billing_address_id`, `customer_id`, `shipping_address_id`, `status`, `date_created`, `last_updated`) VALUES (1,'1b7b2a4a-9139-4f12-bf75-7ed136293f1d',36.98,2,1,1,2,NULL,'2024-03-30 22:21:57.541000','2024-03-30 22:21:57.541000'),(2,'db35c575-35ff-468a-b21d-d8a6ae3a3d6d',36.98,2,3,1,4,NULL,'2024-03-30 22:22:05.675000','2024-03-30 22:22:05.675000'),(3,'11eb8857-863e-4c3d-b016-e55b5ba2f74f',36.98,2,5,2,6,NULL,'2024-03-30 22:25:05.976000','2024-03-30 22:25:05.976000'),(4,'8509a795-207d-4313-989f-25c14201d4a7',50.97,3,7,3,8,NULL,'2024-03-30 23:17:58.307000','2024-03-30 23:17:58.307000'),(5,'60b0f4f7-282f-44be-8551-2789ec7a30a3',50.97,3,9,4,10,NULL,'2024-03-31 00:56:10.125000','2024-03-31 00:56:10.125000'),(6,'56c481d1-9e48-43e4-a349-79c8f96aae5a',113.94,6,11,4,12,NULL,'2024-03-31 12:12:45.088000','2024-03-31 12:12:45.088000'),(7,'64b3704e-c808-4842-b715-85871b0bab6c',35.98,2,13,4,14,NULL,'2024-04-01 13:49:19.384000','2024-04-01 13:49:19.384000'),(8,'5c5ced61-f91e-4673-bc94-654845f81e13',14.99,1,15,5,16,NULL,'2024-04-01 19:35:04.677000','2024-04-01 19:35:04.677000'),(9,'b16a7f39-6b3c-474b-a963-941e6859007d',35.98,2,17,6,18,NULL,'2024-04-01 19:42:35.960000','2024-04-01 19:42:35.960000'),(10,'f78d20eb-85e3-4656-9096-d9e6dcc6260a',17.99,1,19,7,20,NULL,'2024-04-01 19:51:56.982000','2024-04-01 19:51:56.982000'),(11,'f29766ee-c7bb-48fc-8d7a-4dd190aea84a',77.95,5,21,8,22,NULL,'2024-04-01 20:00:08.218000','2024-04-01 20:00:08.218000'),(12,'435765ad-94e5-42b3-865e-4ff1e06092d7',20.99,1,23,5,24,NULL,'2024-04-01 20:56:41.026000','2024-04-01 20:56:41.026000'),(13,'9e3a33aa-a952-471b-8dc2-c61440689266',20.99,1,25,4,26,NULL,'2024-04-01 20:58:11.646000','2024-04-01 20:58:11.646000'),(14,'8c35dd35-dc51-44f2-9b46-773b1abf3d5c',41.98,2,27,5,28,NULL,'2024-04-01 21:04:44.907000','2024-04-01 21:04:44.907000'),(15,'3b0f77c9-a3b0-4e3c-b9b3-72bf03b7b309',53.97,3,29,7,30,NULL,'2024-04-01 21:19:15.075000','2024-04-01 21:19:15.075000'),(16,'811f8cf2-0f6f-459a-b678-e924904c08d6',37.98,2,31,5,32,NULL,'2024-04-01 21:35:06.644000','2024-04-01 21:35:06.644000'),(17,'8ec77a23-ff11-4c27-882e-b8e0c069a8f8',101.94,6,33,9,34,NULL,'2024-04-02 08:04:28.909000','2024-04-02 08:04:28.909000'),(18,'7ee73ccf-90a6-463d-babb-5e87a0c57edf',40.98,2,35,5,36,NULL,'2024-04-02 08:30:25.235000','2024-04-02 08:30:25.235000');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-04-03 18:52:49
